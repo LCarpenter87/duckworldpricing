@@ -50,7 +50,7 @@ def to_do_list():
         )
     
 def get_random_image():
-    files = os.listdir("/assets/")
+    files = os.listdir("assets")
     jpeg_files = [file for file in files if file.endswith('.jpg') or file.endswith('.jpeg')]
     random_image = random.choice(jpeg_files)    
-    return os.path.join("/assets/", random_image)
+    return os.path.join("assets", random_image)

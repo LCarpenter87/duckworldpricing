@@ -69,5 +69,5 @@ with col3:
 
 with col4:
     random_image_path = dw.get_random_image()
-    st.image(random_image_path, caption='Random Image from Assets', use_column_width=True)
+    st.image(random_image_path, caption='Live View from Duck World', use_column_width=True)
 
