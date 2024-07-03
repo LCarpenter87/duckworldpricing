@@ -3,7 +3,7 @@ import psycopg2
 import pandas as pd
 from psycopg2 import sql, OperationalError
 import plotly.express as px
-
+from streamlit_extras.let_it_rain import rain
 
 st.set_page_config(
    page_title="DuckWorld Price Monitoring",
@@ -11,10 +11,16 @@ st.set_page_config(
    layout="wide",
    initial_sidebar_state="collapsed",
 )
-st.title('🦆🦆Duck World Dynamic Pricing🦆🦆')
 
-st.write("""DuckWorld uses controversial dynamic pricing to rip off consumers.""")
-st.write("Use this handy chart to compare duck feed prices and ensure you get a great deal!""")
+def raining_ducks():
+    rain(
+        emoji="🦆",
+        font_size=70,
+        falling_speed=2,
+        animation_length=5,
+    )
+
+@st.cache_data
 def fetch_data_to_dataframe():
     connection = psycopg2.connect(
             dbname="pagila",
@@ -32,6 +38,21 @@ def fetch_data_to_dataframe():
     connection.close()
 
     return pd.DataFrame(data, columns=colnames)
+
+st.title('🦆Duck World Dynamic Pricing!!🦆')
+
+cola, colb = st.columns([3, 1])
+
+with cola:
+
+    st.write("""DuckWorld uses controversial dynamic pricing to rip off consumers.""")
+    st.write("Use this handy chart to compare duck feed prices and ensure you get a great deal!""")
+
+with colb:
+    ducks = st.button("Click for ducks")
+
+if ducks:
+    raining_ducks()
 
 
 df = fetch_data_to_dataframe()
