@@ -26,8 +26,11 @@ def insert_data(current_date, current_time, price ):
 
 duckworld = os.getenv('duckworld')
 response = requests.get(duckworld).json()
+
 price = response['price']
 current_date = (timedelta(hours=1) + datetime.now()).date().strftime("%Y-%m-%d")
 current_time = (timedelta(hours=1) + datetime.now()).time().strftime("%H:%M:%S")
 
-insert_data(current_date, current_time, price)
+# Sometimes the price is None when DuckWorld is shut
+if price not None:
+    insert_data(current_date, current_time, price)
