@@ -1,0 +1,3 @@
+plotly-express
+psycopg2-binary 
+pandas
