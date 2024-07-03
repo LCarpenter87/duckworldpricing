@@ -32,5 +32,5 @@ current_date = (timedelta(hours=1) + datetime.now()).date().strftime("%Y-%m-%d")
 current_time = (timedelta(hours=1) + datetime.now()).time().strftime("%H:%M:%S")
 
 # Sometimes the price is None when DuckWorld is shut
-if price not None:
+if price:
     insert_data(current_date, current_time, price)

@@ -1,9 +1,12 @@
 import streamlit as st 
-import psycopg2
 import pandas as pd
-from psycopg2 import sql, OperationalError
 import plotly.express as px
 from streamlit_extras.let_it_rain import rain
+from streamlit_extras.stodo import to_do
+import duckworld_funcs as dw
+import os
+import random
+
 
 st.set_page_config(
    page_title="DuckWorld Price Monitoring",
@@ -12,39 +15,10 @@ st.set_page_config(
    initial_sidebar_state="collapsed",
 )
 
-def raining_ducks():
-    rain(
-        emoji="🦆",
-        font_size=70,
-        falling_speed=2,
-        animation_length=5,
-    )
-
-@st.cache_data
-def fetch_data_to_dataframe():
-    connection = psycopg2.connect(
-            dbname="pagila",
-            user=st.secrets['sql_user'],
-            password=st.secrets['sql_password'],
-            host=st.secrets['host'],
-            port=5432
-        )
-    cursor = connection.cursor()
-    select_query = sql.SQL("SELECT * FROM main.duckworld")
-    cursor.execute(select_query)
-    data = cursor.fetchall()
-    colnames = [desc[0] for desc in cursor.description]
-    cursor.close()
-    connection.close()
-
-    return pd.DataFrame(data, columns=colnames)
-
 st.title('🦆Duck World Dynamic Pricing!!🦆')
 
 cola, colb = st.columns([3, 1])
-
 with cola:
-
     st.write("""DuckWorld uses controversial dynamic pricing to rip off consumers.""")
     st.write("Use this handy chart to compare duck feed prices and ensure you get a great deal!""")
 
@@ -52,10 +26,10 @@ with colb:
     ducks = st.button("Click for ducks")
 
 if ducks:
-    raining_ducks()
+    dw.raining_ducks()
 
 
-df = fetch_data_to_dataframe()
+df = dw.fetch_data_to_dataframe()
 
 ## Clean the dataframe
 df['datetime'] = pd.to_datetime(df['pricedate'].astype(str) + ' ' + df['pricetime'].astype(str))
@@ -83,3 +57,17 @@ with col2:
 
 
 st.write("This is an unofficial duckworld price monitoring tool. We're not liable for any decision you make using it, nor any mistakes. Consult with a professional before buying a stake in duck feed.")
+
+
+st.divider()
+
+col3, col4 = st.columns(2)
+
+with col3:
+    st.write("Your perfect DuckWorld Day Out to do list")
+    dw.to_do_list()
+
+with col4:
+    random_image_path = dw.get_random_image()
+    st.image(random_image_path, caption='Random Image from Assets', use_column_width=True)
+
