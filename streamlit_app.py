@@ -10,12 +10,10 @@ import random
 
 st.set_page_config(
    page_title="DuckWorld Price Monitoring",
-   page_icon="🦆",
-   layout="wide",
-   initial_sidebar_state="collapsed",
+   page_icon="🦆"
 )
 
-st.title('🦆Duck World Dynamic Pricing!!🦆')
+st.title('🦆Duck World Pricing!🦆')
 
 cola, colb = st.columns([3, 1])
 with cola:
@@ -69,5 +67,5 @@ with col3:
 
 with col4:
     random_image_path = dw.get_random_image()
-    st.image(random_image_path, caption='Live View from Duck World', use_column_width=True)
+    st.image(random_image_path, caption='Live View from Duck World', width=250)
 
