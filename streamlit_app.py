@@ -15,6 +15,9 @@ st.set_page_config(
 
 st.title('🦆Duck World Pricing!🦆')
 
+dw.display_time_based_warning()
+
+
 cola, colb = st.columns([3, 1])
 with cola:
     st.write("""DuckWorld uses controversial dynamic pricing to rip off consumers.""")

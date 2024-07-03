@@ -6,6 +6,15 @@ import pandas as pd
 from psycopg2 import sql
 import os
 import random
+from datetime import datetime, time
+
+def display_time_based_warning():
+    current_time = datetime.now().time()
+    morning_end = time(6, 0)    
+    evening_start = time(22, 0) 
+    
+    if (current_time >= evening_start or current_time <= morning_end):
+        st.warning('Duck World is currently CLOSED', icon="⚠️")
 
 
 def raining_ducks():
